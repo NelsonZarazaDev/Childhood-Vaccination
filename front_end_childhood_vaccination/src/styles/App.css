@@ -1,0 +1,126 @@
+.react-chatbot-kit-chat-container {
+  margin-bottom: 2px;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+
+.react-chatbot-kit-chat-message-container {
+  padding: 0 17.5px 10px 17.5px;
+  overflow: auto;
+  height: 500px;
+}
+
+.react-chatbot-kit-chat-input-container{
+  background-color: white;
+  padding: 4px;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+/* Cosito del chat mennsaje bot */
+.react-chatbot-kit-chat-bot-message-arrow {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #2898ec;
+  position: absolute;
+  left: -7px;
+  top: 13px;
+}
+
+/*cosito user*/
+.react-chatbot-kit-user-chat-message-arrow {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid #f1f1f1;
+  position: absolute;
+  right: -7px;
+  top: 13px;
+}
+
+/*Contenedor chat*/
+.react-chatbot-kit-chat-inner-container {
+  width: 320px;
+}
+
+/*Contenedor ya veremos*/
+.react-chatbot-kit-chat-message-container {
+  padding: 0 17.5px 10px 17.5px;
+  overflow: auto;
+  height: 424px;
+  background-color: white;
+}
+
+/*contenedor de los mensajes*/
+.react-chatbot-kit-chat-bot-message {
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #000000;
+  position: relative;
+  width: 200px;
+  text-align: left;
+  margin-left: initial;
+}
+
+.react-chatbot-kit-user-chat-message {
+  background-color: #e6e6e6;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #000000;
+  font-weight: medium;
+  position: relative;
+  width: 184.5px;
+  margin-left: auto;
+  text-align: left;
+}
+
+/*texto a enviar*/
+.react-chatbot-kit-chat-input {
+  width: 80%;
+  margin: 2px;
+  padding: 12.5px;
+  border: 1px solid #979797;
+  border-radius: 40px;
+  font-size: 0.85rem;
+}
+
+.react-chatbot-kit-chat-input-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*cosito de enviar*/
+.react-chatbot-kit-chat-btn-send {
+  width: 30px;
+  margin: 2px;
+  background-image: none;
+  background: rgba(255, 255, 255, 0);
+}
+
+.react-chatbot-kit-user-chat-message-container{
+  display: flex;
+  margin: 25px 0;
+  justify-content: flex-end;
+}
+
+.react-chatbot-kit-chat-bot-message-container{
+  display: flex;
+  margin: 5px 0;
+  justify-content: flex-start;
+}
+
+svg.react-chatbot-kit-chat-btn-send-icon{
+  background-color: #ffffff;
+}
+
+.react-chatbot-kit-chat-bot-loading-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
