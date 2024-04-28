@@ -3,21 +3,24 @@ package com.Childhood_Vaccination.web.controller;
 
 import com.Childhood_Vaccination.web.model.Vaccinator;
 import com.Childhood_Vaccination.web.service.VaccinatorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
+
 public class VaccinatorController {
 	@Autowired
 	private VaccinatorService vaccinatorService;
 
 	/*Crear*/
 	@PostMapping("vaccinator")
-	public ResponseEntity<Vaccinator> createVaccinator(@RequestBody Vaccinator vaccinator){
+	public ResponseEntity<Vaccinator> createVaccinator(@Valid @RequestBody Vaccinator vaccinator){
 		return new ResponseEntity<>(vaccinatorService.createVaccinator(vaccinator), HttpStatus.CREATED);
 	}
 
@@ -29,7 +32,7 @@ public class VaccinatorController {
 
 	/*Actualizar*/
 	@PutMapping("vaccinator/{id}")
-	public ResponseEntity<Vaccinator> updateVaccinator(@RequestBody Vaccinator vaccinator, @PathVariable String id){
+	public ResponseEntity<Vaccinator> updateVaccinator(@Valid @RequestBody Vaccinator vaccinator, @PathVariable String id){
 		return new ResponseEntity<>(vaccinatorService.updateVaccinator(vaccinator,id),HttpStatus.OK);
 	}
 
