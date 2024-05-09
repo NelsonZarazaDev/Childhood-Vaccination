@@ -37,7 +37,6 @@ public class Vaccinator implements UserDetails {
 	@Size(max = 80,message = "El apellido es demasiado largo")
 	private String last_names;
 
-
 	@NotBlank(message = "El rol es requerido")
 	@Size(max = 50,message = "El rol es demasiado largo")
 	private String role;
@@ -55,16 +54,14 @@ public class Vaccinator implements UserDetails {
 	private String phone;
 
 	@NotNull(message = "La Fecha de inicio es requerida")
-	@Past(message = "La fecha de inicio debe ser menor o igual a la actual")
-	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date start_date;
+	private String  start_date;
 
 	@NotNull(message = "La Fecha de nacimiento es requerida")
-	@Past(message = "La fecha de nacimiento debe ser menor a la actual")
 	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date date_birth;
+	private String date_birth;
 
-	private Boolean status = true;
+	@NotNull(message = "Por favor confirma nuevamente el estado")
+	private Boolean status;
 
 	@NotBlank(message = "El sexo es requerido")
 	@Size(max = 1,message = "El sexo es demasiado largo")
@@ -72,11 +69,11 @@ public class Vaccinator implements UserDetails {
 
 	@NotBlank(message = "La ciudad es requerida")
 	@Size(max = 250,message = "La ciudad es demasiado largo")
-	private String city;
+	private String city_birth;
 
 	@NotBlank(message = "El departamento es requerido")
 	@Size(max = 250,message = "El departamento es demasiado largo")
-	private String department;
+	private String birth_department;
 
 	@JsonIgnore
 	@Override

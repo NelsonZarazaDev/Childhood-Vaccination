@@ -54,8 +54,11 @@ public class ChildService {
 				if (vaccine.getId().equals(vaccineId)) {
 					vaccine.setLaboratory(updatedVaccine.getLaboratory());
 					vaccine.setLotNumber(updatedVaccine.getLotNumber());
+					vaccine.setApplicationDate(updatedVaccine.getApplicationDate());
+					vaccine.setAppliedTime(updatedVaccine.getAppliedTime());
 					vaccine.setNextAppointmentDate(updatedVaccine.getNextAppointmentDate());
 					vaccine.setStatus(true);
+					vaccine.setVaccinator(updatedVaccine.getVaccinator());
 					childRepository.save(child);
 					return vaccine;
 				}

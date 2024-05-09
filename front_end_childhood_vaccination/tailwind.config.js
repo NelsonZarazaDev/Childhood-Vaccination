@@ -9,7 +9,8 @@ module.exports = {
         'lightGreen':'#deefe7',
         'transparentBlue':'#e7f5f5',
         'greenDarkBlue':'#159a9c',
-        'lightGrey':'#b4bec9'
+        'lightGrey':'#b4bec9',
+        'darkGray':'#bababa',
       },
       keyframes: {
         flotar: {

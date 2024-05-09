@@ -6,31 +6,31 @@ export default function PersonalInformation({child}) {
   return (
     <>
       <div className="space-y-10 md:flex md:items-center md:flex-col lg:flex-row lg:space-y-0 lg:space-x-10">
-        <div className="bg-lightGreen rounded-[32px] w-full md:w-10/12 h-48 lg:h-52 md:flex justify-between shadow-xl">
+        <div className="bg-lightGreen rounded-[32px] w-full md:w-10/12 overflow-hidden md:overflow-visible h-60 lg:h-52 md:flex justify-between shadow-xl">
           <div className="p-4 space-y-1 lg:m-auto relative z-[2]">
             <div className="flex space-x-1 font-bold">
               <div className="text-darkBlue	">Nombre:</div>
-              <div>{child.first_name+ ' ' + child.last_name}</div>
+              <div className="font-medium">{child.first_name+ ' ' + child.last_name}</div>
             </div>
 
             <div className="flex space-x-2 font-bold">
               <div className="text-darkBlue">Fecha de nacimiento:</div>
-              <div>{child.birth_date}</div>
+              <div className="font-medium">{child.birth_date}</div>
             </div>
 
             <div className="flex space-x-1 font-bold">
               <div className="text-darkBlue	">Departamento:</div>
-              <div>{child.birth_department}</div>
+              <div className="font-medium">{child.birth_department}</div>
             </div>
 
             <div className="flex space-x-1 font-bold">
               <div className="text-darkBlue	">Municipio:</div>
-              <div>{child.city_birth}</div>
+              <div className="font-medium">{child.city_birth}</div>
             </div>
 
             <div className="flex space-x-1 font-bold">
               <div className="text-darkBlue">Sexo:</div>
-              <div>{child.sex}</div>
+              <div className="font-medium">{child.sex}</div>
             </div>
           </div>
           <img
@@ -40,37 +40,37 @@ export default function PersonalInformation({child}) {
           />
         </div>
 
-        <div className="bg-lightGreen rounded-[32px] w-full md:w-10/12 h-48 lg:h-52 md:flex justify-between shadow-xl">
+        <div className="bg-lightGreen rounded-[32px] w-full md:w-10/12 overflow-hidden md:overflow-visible h-60 lg:h-52 md:flex justify-between shadow-xl">
           <div className="p-4 space-y-1 lg:m-auto relative z-[2]">
 
             <div className="flex space-x-1 font-bold">
               <div className="text-darkBlue	">Nombre madre:</div>
-              <div>{child.parents_mother_name+ ' ' + child.parents_mother_last_name}</div>
+              <div className="font-medium">{child.parents_mother_name+ ' ' + child.parents_mother_last_name}</div>
             </div>
 
             <div className="flex space-x-1 font-bold">
               <div className="text-darkBlue">Nombre padre:</div>
-              <div>{child.parents_father_name+ ' ' + child.parents_father_last_name}</div>
+              <div className="font-medium">{child.parents_father_name+ ' ' + child.parents_father_last_name}</div>
             </div>
 
             <div className="flex space-x-1 font-bold">
               <div className="text-darkBlue">Documento madre:</div>
-              <div>{child.parents_document_mother}</div>
+              <div className="font-medium">{child.parents_document_mother}</div>
             </div>
 
             <div className="flex space-x-1 font-bold">
               <div className="text-darkBlue">Documento padre:</div>
-              <div>{child.parents_document_father}</div>
+              <div className="font-medium">{child.parents_document_father}</div>
             </div>
 
             <div className="flex space-x-1 font-bold">
               <div className="text-darkBlue	">Teléfono madre:</div>
-              <div>{child.parents_phone_mother}</div>
+              <div className="font-medium">{child.parents_phone_mother}</div>
             </div>
 
             <div className="flex space-x-1 font-bold">
               <div className="text-darkBlue	">Teléfono padre:</div>
-              <div>{child.parents_phone_father}</div>
+              <div className="font-medium">{child.parents_phone_father}</div>
             </div>
 
           </div>

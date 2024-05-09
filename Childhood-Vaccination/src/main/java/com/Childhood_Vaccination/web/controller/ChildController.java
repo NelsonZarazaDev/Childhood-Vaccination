@@ -2,20 +2,13 @@ package com.Childhood_Vaccination.web.controller;
 
 import com.Childhood_Vaccination.web.model.Child;
 import com.Childhood_Vaccination.web.model.Vaccine;
-import com.Childhood_Vaccination.web.repository.ChildRepository;
 import com.Childhood_Vaccination.web.service.ChildService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 

@@ -6,14 +6,13 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @Document(collection = "child")
@@ -42,9 +41,8 @@ public class Child implements UserDetails {
 	private String address;
 
 	@NotNull(message = "La fecha de nacimiento del niño es requerida")
-	@Past(message = "La fecha de nacimiento del niño debe ser igual o menor a la actual")
-	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date birth_date;
+	@JsonFormat(pattern="dd-MM-yyyy")
+	private String birth_date;
 
 	@NotBlank(message = "La ciudad del niño es requerida")
 	@Size(max = 250,message = "La ciudad del niño es demasiado largo")

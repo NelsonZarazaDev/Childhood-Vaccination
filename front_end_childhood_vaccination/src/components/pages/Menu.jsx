@@ -3,18 +3,18 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Disclosure } from "@headlessui/react";
-import { salir } from "./Utilities/funciones";
-import { validaToken } from "./Utilities/funciones";
+import { salir } from "../common/Utilities/funciones";
+import { validaToken } from "../common/Utilities/funciones";
+import Footer from "../common/Footer";
 
 export default function Menu() {
-  const decodedToken = localStorage.getItem("decodedToken");
   const rolGlobal = localStorage.getItem("rol");
 
   let navigate = useNavigate();
 
-  // useEffect(() => {
-  //   validaToken(navigate);
-  // },[]);
+  useEffect(() => {
+    validaToken(navigate);
+  }, []);
 
   return (
     <>
@@ -31,8 +31,9 @@ export default function Menu() {
                     {rolGlobal === "Jefe de enfermeria" && (
                       <div className="hidden md:block">
                         <div className="font-bold flex space-x-10">
-                          <Link to={`tabla`}>Usuarios</Link>
-                          <div>Niños</div>
+                          <Link className="hover:bg-greenDarkBlue p-4 rounded-lg" to={`CreateUsers/Users`}>Usuarios</Link>
+                          <Link className="hover:bg-greenDarkBlue p-4 rounded-lg" to={`RegisterChild/`}>Niños</Link>
+                          <Link className="hover:bg-greenDarkBlue p-4 rounded-lg" to={`../Menu`} >Menu</Link>
                         </div>
                       </div>
                     )}
@@ -64,9 +65,10 @@ export default function Menu() {
                 <>
                   <Disclosure.Panel className="lg:hidden absolute inset-x-0 bg-LightBlue rounded-bl-xl rounded-br-xl">
                     <div className="space-y-2 px-2 pb-3 pt-2 sm:px-3 bg-lightGreen">
-                      <div className="font-bold flex flex-col">
-                        <Link to={`tabla`}>Usuarios</Link>
-                        <Link>Niño</Link>
+                      <div className="font-bold flex flex-col space-y-4">
+                        <Link to={`CreateUsers/Users`}>Usuarios</Link>
+                        <Link to={`RegisterChild/Action`}>Niños</Link>
+                        <Link to={`../Menu`}>Menu</Link>
                       </div>
                     </div>
                   </Disclosure.Panel>
@@ -95,6 +97,7 @@ export default function Menu() {
       <div className="m-4 bg-white" id="detail">
         <Outlet />
       </div>
+      
     </>
   );
 }

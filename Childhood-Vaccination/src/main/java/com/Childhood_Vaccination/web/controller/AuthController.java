@@ -26,9 +26,4 @@ public class AuthController {
 	public ResponseEntity<AuthResponse> loginChild(@Valid @RequestBody LoginChildRequest request){
 		return ResponseEntity.ok(authService.loginChild(request));
 	}
-
-	@PostMapping(value = "register")
-	public ResponseEntity<AuthResponse> register(@Valid @RequestBody Vaccinator request){
-		return ResponseEntity.ok(authService.register(request));
-	}
 }

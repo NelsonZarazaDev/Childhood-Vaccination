@@ -3,6 +3,7 @@ package com.Childhood_Vaccination.web.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.bson.types.ObjectId;
@@ -28,17 +29,19 @@ public class Vaccine {
 	@Size(max = 50, message = "El nombre del laboratorio es demasiado largo")
 	private String laboratory;
 
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private String applicationDate;
+
+	private String appliedTime;
 
 	private String lotNumber;
 
-	@Future(message = "La fecha de la proxima cita debe ser igual o mayor a la actual")
+	@NotNull(message = "La fecha de la proxima cita es requerida")
 	@JsonFormat(pattern="yyyy-MM-dd")
-	private Date nextAppointmentDate;
+	private String nextAppointmentDate;
 
 	private int num_applied;
 
-
 	@DBRef
-	private Map<String, String> vaccinator;
+	private Vaccinator vaccinator;
 }

@@ -10,3 +10,10 @@ export function validaToken(navigate) {
     salir(navigate);
   }
 }
+
+export function validateLogin(navigate, route){
+    const userToken = localStorage.getItem('token');
+    if(!!userToken){
+      navigate(route, {replace:true});
+    }
+}
