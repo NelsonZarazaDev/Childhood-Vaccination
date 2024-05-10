@@ -82,9 +82,9 @@ export default function CreateUsers() {
                       id="document"
                       name="document"
                       value={document}
-                      type="text"
+                      type="number"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -95,7 +95,7 @@ export default function CreateUsers() {
                       value={first_name}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -106,7 +106,7 @@ export default function CreateUsers() {
                       value={last_names}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -115,7 +115,7 @@ export default function CreateUsers() {
                       id="role"
                       name="role"
                       onChange={(e) => onInputChange(e)}
-                      className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-bold"
+                      className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-medium"
                     >
                       <option value=""></option>
                       <option value="Enfermera">Enfermera / Enfermero</option>
@@ -132,7 +132,7 @@ export default function CreateUsers() {
                       value={email}
                       type="email"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -143,7 +143,7 @@ export default function CreateUsers() {
                       value={password}
                       type="password"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -152,9 +152,9 @@ export default function CreateUsers() {
                       id="phone"
                       name="phone"
                       value={phone}
-                      type="tel"
+                      type="number"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -165,7 +165,7 @@ export default function CreateUsers() {
                       value={start_date}
                       type="date"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -176,7 +176,7 @@ export default function CreateUsers() {
                       value={date_birth}
                       type="date"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -185,7 +185,7 @@ export default function CreateUsers() {
                       id="sex"
                       name="sex"
                       onChange={(e) => onInputChange(e)}
-                      className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-bold"
+                      className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-medium"
                     >
                       <option value=""></option>
                       <option value="M">Masculino</option>

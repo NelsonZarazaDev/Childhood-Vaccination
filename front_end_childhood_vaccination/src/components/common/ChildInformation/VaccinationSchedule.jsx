@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RiEdit2Line } from "react-icons/ri";
 import Modalcomponent from "../Utilities/Modalcomponent";
 import TextInput from "../Utilities/TextInput";
 import Input from "../Utilities/Input";
 import axios from "axios";
 import Button from "../Utilities/Button";
+import Alerts from "../Utilities/Alerts";
+import { useNavigate } from "react-router-dom";
 
 export default function VaccinationSchedule({ child, code }) {
+  const navigate = useNavigate();
+  const [buttonActive, setButtonActive] = useState(false);
+
   var fechaActual = new Date();
   var año = fechaActual.getFullYear();
   var mes = fechaActual.getMonth() + 1;
@@ -24,8 +29,9 @@ export default function VaccinationSchedule({ child, code }) {
 
   var fechaFormateada = dia + "/" + mes + "/" + año;
   var fecha = año + "-" + mes + "-" + dia;
-  var hora= hora +":"+min;
+  var hora = hora + ":" + min;
 
+  const [alertInfoList, setAlertInfoList] = useState([]);
   const [vaccineView, setVaccineView] = useState([]);
   const [documentoDato, setDocumento] = useState([]);
   const [idDato, setId] = useState([]);
@@ -37,7 +43,7 @@ export default function VaccinationSchedule({ child, code }) {
     lotNumber: "",
     applicationDate: fecha,
     nextAppointmentDate: "",
-    appliedTime:hora,
+    appliedTime: hora,
     vaccinator: {
       document: localStorage.getItem("decodedToken"),
       first_name: localStorage.getItem("first_name"),
@@ -68,10 +74,12 @@ export default function VaccinationSchedule({ child, code }) {
       setVaccineView(resultado.data);
       setDocumento(documento);
       setId(id);
-    } catch (error) {
-      const data = error.response.data;
-      const dataArray = Object.values(data);
-    }
+    } catch (error) {}
+  };
+
+  const addAlert = (message, type) => {
+    const newAlertInfoList = [...alertInfoList, { message, type }];
+    setAlertInfoList(newAlertInfoList);
   };
 
   const onInputChange = (e) => {
@@ -80,17 +88,37 @@ export default function VaccinationSchedule({ child, code }) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    console.log(editChild.laboratory);
     try {
-      await axios.put(
-        "http://localhost:8088/child/" + documentoDato + "/" + idDato,
-        editChild,
-        {
-          headers: header,
-        }
-      );
+      if (!editChild.laboratory || editChild.laboratory.trim().length === 0) {
+        addAlert("El laboratorio es obligatorio", "2");
+      } else if (
+        !editChild.lotNumber ||
+        editChild.lotNumber.trim().length === 0
+      ) {
+        addAlert("El numero de lote es obligatorio", "2");
+      } else {
+        await axios.put(
+          "http://localhost:8088/child/" + documentoDato + "/" + idDato,
+          editChild,
+          {
+            headers: header,
+          }
+        );
+        addAlert("Registro guardado", "1");
+      }
     } catch (error) {
-      const data = error.response.data;
-      const dataArray = Object.values(data);
+      if (error.response && error.response.data) {
+        const data = error.response.data;
+        const dataArray = Object.values(data);
+        console.log(dataArray);
+        addAlert(dataArray[0], "2");
+      } else {
+        addAlert(
+          "Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.",
+          "2"
+        );
+      }
     }
   };
 
@@ -139,14 +167,16 @@ export default function VaccinationSchedule({ child, code }) {
           {child.vaccines &&
             child.vaccines.map((vaccine, index) => (
               <tr key={index} className="hover:bg-lightGreen h-16">
-                <td className=" bg-blue-300">{vaccine.age}</td>
-                <td>{vaccine.vaccineName}</td>
-                <td>{vaccine.dose}</td>
-                <td>{vaccine.applicationDate}</td>
-                <td>{vaccine.laboratory}</td>
-                <td>{vaccine.lotNumber}</td>
-                <td>{vaccine.nextAppointmentDate}</td>
-                <td>
+                <td className="bg-blue-300 font-medium">{vaccine.age}</td>
+                <td className="font-medium">{vaccine.vaccineName}</td>
+                <td className="font-medium">{vaccine.dose}</td>
+                <td className="font-medium">{vaccine.applicationDate}</td>
+                <td className="font-medium">{vaccine.laboratory}</td>
+                <td className="font-medium overflow-y-auto">
+                  {vaccine.lotNumber}
+                </td>
+                <td className="font-medium">{vaccine.nextAppointmentDate}</td>
+                <td className="font-medium">
                   {vaccine.vaccinator
                     ? vaccine.vaccinator.first_name +
                       " " +
@@ -154,11 +184,9 @@ export default function VaccinationSchedule({ child, code }) {
                     : ""}
                 </td>
                 {(user === "Jefe de enfermeria" &&
-                  code ===
-                    "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH") ||
+                  code === "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH" && vaccine.status!=true) ||
                 (user === "Enfermera" &&
-                  code ===
-                    "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH") ? (
+                  code === "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH" && vaccine.status!=true) ? (
                   <td className="text-center">
                     <button
                       onClick={() => infoVaccine(child.document, vaccine.id)}
@@ -179,7 +207,7 @@ export default function VaccinationSchedule({ child, code }) {
                                     type="text"
                                     value={vaccineView.age}
                                     state="disabled"
-                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   />
                                 </div>
                                 <div>
@@ -190,7 +218,7 @@ export default function VaccinationSchedule({ child, code }) {
                                     type="text"
                                     value={vaccineView.vaccineName}
                                     state="disabled"
-                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   />
                                 </div>
                                 <div>
@@ -201,7 +229,7 @@ export default function VaccinationSchedule({ child, code }) {
                                     type="text"
                                     value={vaccineView.dose}
                                     state="disabled"
-                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   />
                                 </div>
                                 <div>
@@ -213,7 +241,7 @@ export default function VaccinationSchedule({ child, code }) {
                                     value={fechaFormateada}
                                     onChange={(e) => onInputChange(e)}
                                     state="disabled"
-                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   />
                                 </div>
                                 <div>
@@ -224,7 +252,7 @@ export default function VaccinationSchedule({ child, code }) {
                                     type="text"
                                     value={laboratory}
                                     onChange={(e) => onInputChange(e)}
-                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   />
                                 </div>
                                 <div>
@@ -235,7 +263,7 @@ export default function VaccinationSchedule({ child, code }) {
                                     type="text"
                                     value={lotNumber}
                                     onChange={(e) => onInputChange(e)}
-                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   />
                                 </div>
                                 <div>
@@ -246,7 +274,7 @@ export default function VaccinationSchedule({ child, code }) {
                                     value={nextAppointmentDate}
                                     onChange={(e) => onInputChange(e)}
                                     type="date"
-                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   />
                                 </div>
 
@@ -266,7 +294,7 @@ export default function VaccinationSchedule({ child, code }) {
                                     name="first_name"
                                     type="text"
                                     value={localStorage.getItem("first_name")}
-                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                     state="disabled"
                                   />
                                 </div>
@@ -278,7 +306,7 @@ export default function VaccinationSchedule({ child, code }) {
                                     name="last_name"
                                     type="text"
                                     value={localStorage.getItem("last_names")}
-                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                     state="disabled"
                                   />
                                 </div>
@@ -287,6 +315,13 @@ export default function VaccinationSchedule({ child, code }) {
                                 <Button text="Actualizar" />
                               </div>
                             </form>
+                            {alertInfoList.map((alert, index) => (
+                              <Alerts
+                                key={index}
+                                mensaje={alert.message}
+                                tipo={alert.type}
+                              />
+                            ))}
                           </>
                         }
                       />
@@ -307,37 +342,39 @@ export default function VaccinationSchedule({ child, code }) {
                 key={index}
                 className="bg-blue-200 :ring-1 :ring-black/5 :shadow-lg p-6 rounded-lg "
               >
-                <summary className="text-sm leading-6 text-slate-900 font-semibold select-none">
+                <summary className="text-sm leading-6 text-slate-900 font-bold select-none">
                   {vaccine.age + " - " + vaccine.vaccineName}
                 </summary>
-                <div className="mt-3 text-sm leading-6 text-slate-600 ">
+                <div className="mt-3 text-sm leading-6 text-black">
                   <div className="flex space-x-2">
                     <div className="font-bold	">VACUNA:</div>
-                    <div>{vaccine.vaccineName}</div>
+                    <div className="font-medium">{vaccine.vaccineName}</div>
                   </div>
                   <div className="flex space-x-2">
                     <div className="font-bold	">DOSIS:</div>
-                    <div>{vaccine.dose}</div>
+                    <div className="font-medium">{vaccine.dose}</div>
                   </div>
                   <div className="flex space-x-2">
                     <div className="font-bold	">FECHA DE APLICACIÓN:</div>
-                    <div>{vaccine.applicationDate}</div>
+                    <div className="font-medium">{vaccine.applicationDate}</div>
                   </div>
                   <div className="flex space-x-2">
                     <div className="font-bold	">LABORATORIO:</div>
-                    <div>{vaccine.laboratory}</div>
+                    <div className="font-medium">{vaccine.laboratory}</div>
                   </div>
                   <div className="flex space-x-2">
                     <div className="font-bold	">NUMERO DE LOTE</div>
-                    <div>{vaccine.lotNumber}</div>
+                    <div className="font-medium">{vaccine.lotNumber}</div>
                   </div>
                   <div className="flex space-x-2">
                     <div className="font-bold	">FECHA PROXIMA CITA:</div>
-                    <div>{vaccine.nextAppointmentDate}</div>
+                    <div className="font-medium">
+                      {vaccine.nextAppointmentDate}
+                    </div>
                   </div>
                   <div className="flex space-x-2">
                     <div className="font-bold	">NOMBRE DEL VACUNADOR:</div>
-                    <div>
+                    <div className="font-medium">
                       {vaccine.vaccinator
                         ? vaccine.vaccinator.first_name +
                           " " +
@@ -360,7 +397,141 @@ export default function VaccinationSchedule({ child, code }) {
                             estilos="text-xl p-1 rounded-md bg-yellow-300"
                             icon={<RiEdit2Line />}
                             title="Información del usuario"
-                            content={<></>}
+                            content={
+                              <>
+                                <form onSubmit={(e) => onSubmit(e)}>
+                                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-4 my-8">
+                                    <div>
+                                      <TextInput text="Edad" />
+                                      <Input
+                                        id="age"
+                                        name="age"
+                                        type="text"
+                                        value={vaccineView.age}
+                                        state="disabled"
+                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                      />
+                                    </div>
+                                    <div>
+                                      <TextInput text="Vacuna" />
+                                      <Input
+                                        id="vaccineName"
+                                        name="vaccineName"
+                                        type="text"
+                                        value={vaccineView.vaccineName}
+                                        state="disabled"
+                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                      />
+                                    </div>
+                                    <div>
+                                      <TextInput text="Dosis" />
+                                      <Input
+                                        id="dose"
+                                        name="dose"
+                                        type="text"
+                                        value={vaccineView.dose}
+                                        state="disabled"
+                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                      />
+                                    </div>
+                                    <div>
+                                      <TextInput text="Fecha de aplicación" />
+                                      <Input
+                                        id="applicationDate"
+                                        name="applicationDate"
+                                        type="text"
+                                        value={fechaFormateada}
+                                        onChange={(e) => onInputChange(e)}
+                                        state="disabled"
+                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                      />
+                                    </div>
+                                    <div>
+                                      <TextInput text="Laboratorio" />
+                                      <Input
+                                        id="laboratory"
+                                        name="laboratory"
+                                        type="text"
+                                        value={laboratory}
+                                        onChange={(e) => onInputChange(e)}
+                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                      />
+                                    </div>
+                                    <div>
+                                      <TextInput text="Numero de lote" />
+                                      <Input
+                                        id="lotNumber"
+                                        name="lotNumber"
+                                        type="text"
+                                        value={lotNumber}
+                                        onChange={(e) => onInputChange(e)}
+                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                      />
+                                    </div>
+                                    <div>
+                                      <TextInput text="Fecha proxima cita" />
+                                      <Input
+                                        id="nextAppointmentDate"
+                                        name="nextAppointmentDate"
+                                        value={nextAppointmentDate}
+                                        onChange={(e) => onInputChange(e)}
+                                        type="date"
+                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                      />
+                                    </div>
+
+                                    {/* Vacuandor */}
+                                    <Input
+                                      id="document"
+                                      name="document"
+                                      type="hidden"
+                                      value={localStorage.getItem(
+                                        "decodedToken"
+                                      )}
+                                      state="disabled"
+                                    />
+
+                                    <div>
+                                      <TextInput text="Nombre del vacunador:" />
+                                      <Input
+                                        id="first_name"
+                                        name="first_name"
+                                        type="text"
+                                        value={localStorage.getItem(
+                                          "first_name"
+                                        )}
+                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                        state="disabled"
+                                      />
+                                    </div>
+
+                                    <div>
+                                      <TextInput text="Apellidos del vacunador:" />
+                                      <Input
+                                        id="last_name"
+                                        name="last_name"
+                                        type="text"
+                                        value={localStorage.getItem(
+                                          "last_names"
+                                        )}
+                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                        state="disabled"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="w-full flex justify-center">
+                                    <Button text="Actualizar" />
+                                  </div>
+                                </form>
+                                {alertInfoList.map((alert, index) => (
+                                  <Alerts
+                                    key={index}
+                                    mensaje={alert.message}
+                                    tipo={alert.type}
+                                  />
+                                ))}
+                              </>
+                            }
                           />
                         </div>
                       </>

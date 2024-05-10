@@ -10,6 +10,7 @@ import Footer from "../../common/Footer";
 import flyingVaccinator from "../../../assets/img/flyingVaccinator.webp";
 import axios, { AxiosHeaders } from "axios";
 import Alerts from "../../common/Utilities/Alerts";
+import Button from "../../common/Utilities/Button";
 
 export default function RegisterChild() {
   let navigate = useNavigate();
@@ -45,7 +46,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "Recien nacidos",
@@ -56,7 +57,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 2 meses",
@@ -67,7 +68,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 2 meses",
@@ -78,7 +79,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 2 meses",
@@ -89,7 +90,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 2 meses",
@@ -100,7 +101,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 2 meses",
@@ -111,7 +112,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 2 meses",
@@ -122,7 +123,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 4 meses",
@@ -133,7 +134,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 4 meses",
@@ -144,7 +145,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 4 meses",
@@ -155,7 +156,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 4 meses",
@@ -166,7 +167,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 4 meses",
@@ -177,7 +178,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 4 meses",
@@ -188,7 +189,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 6 meses",
@@ -199,7 +200,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 6 meses",
@@ -210,7 +211,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 6 meses",
@@ -221,7 +222,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 6 meses",
@@ -232,7 +233,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 6 meses",
@@ -243,7 +244,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 7 meses",
@@ -254,7 +255,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 12 meses",
@@ -265,7 +266,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 12 meses",
@@ -276,7 +277,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 12 meses",
@@ -287,7 +288,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 12 meses",
@@ -298,7 +299,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 18 meses",
@@ -309,7 +310,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 18 meses",
@@ -320,7 +321,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 18 meses",
@@ -331,7 +332,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 5 años",
@@ -342,7 +343,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 5 años",
@@ -353,7 +354,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 5 años",
@@ -364,7 +365,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "A los 5 años",
@@ -375,7 +376,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "Niños y niñas a los 9 años",
@@ -386,7 +387,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
       {
         age: "Niños y niñas a los 9 años",
@@ -397,7 +398,7 @@ export default function RegisterChild() {
         lotNumber: "",
         AppointmentDate: "",
         nextAppointmentDate: "",
-        appliedTime:"",
+        appliedTime: "",
       },
     ],
   });
@@ -497,7 +498,7 @@ export default function RegisterChild() {
                       value={first_name}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
@@ -509,7 +510,7 @@ export default function RegisterChild() {
                       value={last_name}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
@@ -519,9 +520,9 @@ export default function RegisterChild() {
                       id="document"
                       name="document"
                       value={document}
-                      type="text"
+                      type="number"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
@@ -531,7 +532,7 @@ export default function RegisterChild() {
                       id="sex"
                       name="sex"
                       onChange={(e) => onInputChange(e)}
-                      className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-bold"
+                      className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-medium"
                     >
                       <option value=""></option>
                       <option value="M">Masculino</option>
@@ -547,7 +548,7 @@ export default function RegisterChild() {
                       value={birth_date}
                       type="date"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
@@ -559,7 +560,7 @@ export default function RegisterChild() {
                       value={address}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
@@ -576,143 +577,141 @@ export default function RegisterChild() {
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center gap-y-8 gap-x-4 my-8">
                   <div>
-                    <TextInput text="Nombre de la madre:" />
+                    <TextInput text="Nombre de la madre" />
                     <Input
                       id="parents_mother_name"
                       name="parents_mother_name"
                       value={parents_mother_name}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
                   <div>
-                    <TextInput text="Apellidos de la madre:" />
+                    <TextInput text="Apellidos de la madre" />
                     <Input
                       id="parents_mother_last_name"
                       name="parents_mother_last_name"
                       value={parents_mother_last_name}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
                   <div>
-                    <TextInput text="Nombre del padre:" />
+                    <TextInput text="Nombre del padre" />
                     <Input
                       id="parents_father_name"
                       name="parents_father_name"
                       value={parents_father_name}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
                   <div>
-                    <TextInput text="Apellidos del padre:" />
+                    <TextInput text="Apellidos del padre" />
                     <Input
                       id="parents_father_last_name"
                       name="parents_father_last_name"
                       value={parents_father_last_name}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
                   <div>
-                    <TextInput text="Documento de la madre:" />
+                    <TextInput text="Documento de la madre" />
                     <Input
                       id="parents_document_mother"
                       name="parents_document_mother"
                       value={parents_document_mother}
-                      type="text"
+                      type="number"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
                   <div>
-                    <TextInput text="Documento del padre:" />
+                    <TextInput text="Documento del padre" />
                     <Input
                       id="parents_document_father"
                       name="parents_document_father"
                       value={parents_document_father}
-                      type="text"
+                      type="number"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
                   <div>
-                    <TextInput text="Nombre del responsable:" />
+                    <TextInput text="Nombre del responsable" />
                     <Input
                       id="parents_responsible"
                       name="parents_responsible"
                       value={parents_responsible}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
                   <div>
-                    <TextInput text="Teléfono de la madre:" />
+                    <TextInput text="Teléfono de la madre" />
                     <Input
                       id="parents_phone_mother"
                       name="parents_phone_mother"
                       value={parents_phone_mother}
-                      type="tel"
+                      type="number"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
                   <div>
-                    <TextInput text="Teléfono del padre:" />
+                    <TextInput text="Teléfono del padre" />
                     <Input
                       id="parents_phone_father"
                       name="parents_phone_father"
                       value={parents_phone_father}
-                      type="tel"
+                      type="number"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
                   <div>
-                    <TextInput text="Correo de la madre:" />
+                    <TextInput text="Correo de la madre" />
                     <Input
                       id="parents_email_mother"
                       name="parents_email_mother"
                       value={parents_email_mother}
                       type="email"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
 
                   <div>
-                    <TextInput text="Correo del padre:" />
+                    <TextInput text="Correo del padre" />
                     <Input
                       id="parents_email_father"
                       name="parents_email_father"
                       value={parents_email_father}
                       type="email"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  <div className="bi bi-floppy"> Agregar</div>
-                </button>
+
+                <div className="w-full flex justify-center">
+                  <Button text="Agregar" />
+                </div>
               </form>
               {alertInfoList.map((alert, index) => (
                 <Alerts key={index} mensaje={alert.message} tipo={alert.type} />

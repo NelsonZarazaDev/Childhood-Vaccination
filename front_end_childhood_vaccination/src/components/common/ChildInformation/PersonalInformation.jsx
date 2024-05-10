@@ -6,7 +6,7 @@ export default function PersonalInformation({child}) {
   return (
     <>
       <div className="space-y-10 md:flex md:items-center md:flex-col lg:flex-row lg:space-y-0 lg:space-x-10">
-        <div className="bg-lightGreen rounded-[32px] w-full md:w-10/12 overflow-hidden md:overflow-visible h-60 lg:h-52 md:flex justify-between shadow-xl">
+        <div className="bg-lightGreen rounded-[32px] w-full md:w-10/12 overflow-hidden md:overflow-visible h-60 sm:h-48 lg:h-52 md:flex justify-between shadow-xl">
           <div className="p-4 space-y-1 lg:m-auto relative z-[2]">
             <div className="flex space-x-1 font-bold">
               <div className="text-darkBlue	">Nombre:</div>
@@ -34,13 +34,13 @@ export default function PersonalInformation({child}) {
             </div>
           </div>
           <img
-            className="w-44 h-44 -translate-y-[9.5rem] translate-x-[14rem] md:w-60 md:h-56 lg:w-60 lg:h-60 overflow-hidden md:translate-x-0  md:-translate-y-8 lg:-translate-y-8 relative z-0 opacity-30 md:opacity-100"
+            className="w-44 h-44 invisible sm:visible sm:-translate-y-[11.2rem] sm:translate-x-[14rem] md:w-60 md:h-56 lg:w-60 lg:h-60 overflow-hidden md:translate-x-0  md:-translate-y-8 lg:-translate-y-8 relative z-0 opacity-30 md:opacity-100"
             src={img1}
             alt=""
           />
         </div>
 
-        <div className="bg-lightGreen rounded-[32px] w-full md:w-10/12 overflow-hidden md:overflow-visible h-60 lg:h-52 md:flex justify-between shadow-xl">
+        <div className="bg-lightGreen rounded-[32px] w-full md:w-10/12 overflow-hidden md:overflow-visible h-60 sm:h-48 lg:h-52 md:flex justify-between shadow-xl">
           <div className="p-4 space-y-1 lg:m-auto relative z-[2]">
 
             <div className="flex space-x-1 font-bold">
@@ -75,7 +75,7 @@ export default function PersonalInformation({child}) {
 
           </div>
           <img
-            className="w-44 h-44 -translate-y-[11.2rem] translate-x-[14rem] md:w-60 md:h-56 lg:w-60 lg:h-60 overflow-hidden md:translate-x-0  md:-translate-y-8 lg:-translate-y-8 relative z-0 opacity-30 md:opacity-100"
+            className="w-44 h-44 invisible sm:visible sm:-translate-y-[11.2rem] sm:translate-x-[14rem] md:w-60 md:h-56 lg:w-60 lg:h-60 md:translate-x-0  md:-translate-y-8 lg:-translate-y-8 relative z-0 opacity-30 md:opacity-100"
             src={img2}
             alt=""
           />

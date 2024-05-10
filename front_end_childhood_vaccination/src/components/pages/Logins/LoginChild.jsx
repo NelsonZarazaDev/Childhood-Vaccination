@@ -74,8 +74,8 @@ export default function LoginChild() {
 
   return (
     <div className="w-full h-screen bg-lightGreen">
-      <div className="h-[90vh] flex lg:items-center justify-center p-6">
-        <div className="m-4 flex flex-col text-center bg-white h-full w-[90%] rounded-2xl drop-shadow-lg">
+      <div className="h-[90vh] items-center flex lg:items-center justify-center p-6">
+        <div className="m-4 flex flex-col text-center bg-white w-[90%] rounded-2xl drop-shadow-lg p-4">
           <Link
             className="text-darkBlue font-bold text-lg p-4 flex justify-end"
             to={`loginVaccinator`}
@@ -90,7 +90,7 @@ export default function LoginChild() {
                 onSubmit={(e) => onSubmit(e)}
               >
                 <Input
-                  estilos="bg-lightGreen p-3 w-[70%] rounded-lg font-bold"
+                  estilos="bg-lightGreen md:w-3/4 p-3 w-full rounded-lg font-bold"
                   placeholder="DOCUMENTO"
                   type="document"
                   name="document"
@@ -103,8 +103,8 @@ export default function LoginChild() {
               {message && <Alerts mensaje={message} tipo={type} />}
             </div>
 
-            <div className=" md:visible z-[-1] h-full fixed opacity-30 flex items-center lg:flex lg:opacity-100 lg:relative lg:w-full lg:h-full lg:m-4">
-              <img className="" src={loginImg} alt="" />
+            <div className="invisible hidden md:visible fixed items-center lg:flex lg:opacity-100 lg:relative lg:w-full lg:h-full lg:m-4">
+              <img className="" src={loginImg} alt="" /> 
             </div>
           </div>
         </div>

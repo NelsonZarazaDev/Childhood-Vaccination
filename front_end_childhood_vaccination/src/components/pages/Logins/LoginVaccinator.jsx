@@ -75,8 +75,8 @@ export default function LoginVaccinator() {
 
   return (
     <div className="w-full h-screen bg-lightGreen">
-      <div className="h-[90vh] flex lg:items-center justify-center p-6">
-        <div className="m-4 flex flex-col text-center bg-white h-full w-[90%] rounded-2xl drop-shadow-lg">
+      <div className="h-[90vh] items-center flex lg:items-center justify-center p-6">
+        <div className="m-4 flex flex-col text-center bg-white w-[90%] rounded-2xl drop-shadow-lg p-4">
           <Link
             className="text-darkBlue font-bold text-lg p-4 flex justify-end"
             to={`/`}
@@ -113,7 +113,7 @@ export default function LoginVaccinator() {
               </form>
               {message && <Alerts mensaje={message} tipo={type} />}
             </div>
-            <div className=" md:visible z-[-1] h-full fixed opacity-30 flex items-center lg:flex lg:opacity-100 lg:relative lg:w-full lg:h-full lg:m-4">
+            <div className="invisible hidden md:visible fixed items-center lg:flex lg:opacity-100 lg:relative lg:w-full lg:h-full lg:m-4">
               <img className="" src={loginImg} alt="" />
             </div>
           </div>

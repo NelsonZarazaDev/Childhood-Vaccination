@@ -2,17 +2,18 @@ import React, { useMemo, useState } from "react";
 import { LuPenSquare } from "react-icons/lu";
 import { LuEye } from "react-icons/lu";
 import Modalcomponent from "../../common/Utilities/Modalcomponent";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import VaccinationCard from "../Child/VaccinationCard";
 import Input from "../../common/Utilities/Input";
 import TextInput from "../../common/Utilities/TextInput";
 import { GetChild } from "../../../data/VaccinationSchedule";
 
 export default function ActionTable() {
+  let navigate = useNavigate();
   const [ChildRegister, setChilddRegister] = useState([]);
   const params = useParams();
   const childRegister = useMemo(
-    () => GetChild(params.documento),
+    () => GetChild(params.documento, navigate),
     [params.documento]
   );
   childRegister.then(function (result) {
@@ -37,7 +38,7 @@ export default function ActionTable() {
             </th>
           </thead>
           <tbody>
-            <tr className="h-14 ml-4 font-bold text-center text-[#585858]">
+            <tr className="h-14 ml-4 text-center text-[#3d3d3d] font-medium">
               <td className="p-2.5">
                 {ChildRegister.first_name + " " + ChildRegister.last_name}
               </td>
@@ -45,7 +46,7 @@ export default function ActionTable() {
               <td className="p-2.5">{ChildRegister.parents_responsible}</td>
               <td className="p-2.5 md:flex md:justify-center space-y-2 md:space-y-0 md:space-x-4">
                 <Modalcomponent
-                  estilos="text-xl bg-yellow-300 rounded-lg p-2"
+                  estilos="text-xl bg-yellow-300 rounded-lg p-2 text-black"
                   icon={<LuPenSquare />}
                   title="Registrar usuario"
                   content={
@@ -56,12 +57,12 @@ export default function ActionTable() {
                   }
                 />
                 <Modalcomponent
-                  estilos="text-xl bg-blue-300 rounded-lg p-2"
+                  estilos="text-xl bg-blue-300 rounded-lg p-2 text-black"
                   icon={<LuEye />}
                   title="Información del usuario"
                   content={
                     <>
-                      <VaccinationCard code="" />
+                      <VaccinationCard/>
                     </>
                   }
                 />
