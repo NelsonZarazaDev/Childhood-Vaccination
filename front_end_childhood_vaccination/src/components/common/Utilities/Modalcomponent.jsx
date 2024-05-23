@@ -15,7 +15,7 @@ const customStyles = {
     padding: "2rem",
     borderRadius: "0.5rem",
     border: "2px solid #bababa",
-    background: "#f3f3f3",
+    background: "#ffffff",
     WebkitOverflowScrolling: "touch",
   },
 };

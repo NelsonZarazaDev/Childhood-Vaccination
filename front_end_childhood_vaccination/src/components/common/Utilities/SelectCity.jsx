@@ -1138,7 +1138,7 @@ export default function SelectCity({ selectedDepartment, onChange }) {
       name="city_birth"
       id="city_birth"
       onChange={onChange}
-      className="w-[96%] bg-white border-2 border-darkGray p-3 rounded-full font-bold ml-[0.6rem]"
+      className="w-[96%] bg-white border-2 border-darkGray p-3 rounded-full font-medium ml-[0.6rem]"
     >
       <option value=""></option>
       {citys.map((cityList, index) =>

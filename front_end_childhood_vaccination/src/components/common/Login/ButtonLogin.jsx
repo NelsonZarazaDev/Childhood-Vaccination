@@ -5,7 +5,7 @@ export default function ButtonLogin() {
     <>
       <button
         type="submit"
-        className="w-1/2 h-14 bg-darkBlue rounded-full font-bold text-white text-xl shadow-xl"
+        className="w-2/3 md:w-2/6 h-14 bg-darkBlue rounded-full font-bold text-white text-xl shadow-xl"
       >
         Iniciar sesión
       </button>

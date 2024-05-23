@@ -6,18 +6,11 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Document(collection = "vaccinator")
@@ -54,7 +47,7 @@ public class Vaccinator implements UserDetails {
 	private String phone;
 
 	@NotNull(message = "La Fecha de inicio es requerida")
-	private String  start_date;
+	private String start_date;
 
 	@NotNull(message = "La Fecha de nacimiento es requerida")
 	@JsonFormat(pattern="yyyy-MM-dd")

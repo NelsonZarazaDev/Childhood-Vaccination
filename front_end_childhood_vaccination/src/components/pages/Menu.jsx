@@ -31,9 +31,55 @@ export default function Menu() {
                     {rolGlobal === "Jefe de enfermeria" && (
                       <div className="hidden md:block">
                         <div className="font-bold flex space-x-10">
-                          <Link className="hover:bg-greenDarkBlue p-4 rounded-lg" to={`CreateUsers/Users`}>Usuarios</Link>
-                          <Link className="hover:bg-greenDarkBlue p-4 rounded-lg" to={`RegisterChild/`}>Niños</Link>
-                          <Link className="hover:bg-greenDarkBlue p-4 rounded-lg" to={`../Menu`} >Menu</Link>
+                          <Link
+                            className="hover:bg-greenDarkBlue p-4 rounded-lg"
+                            to={`../Menu`}
+                          >
+                            Menu
+                          </Link>
+                          <Link
+                            className="hover:bg-greenDarkBlue p-4 rounded-lg"
+                            to={`CreateUsers/Users`}
+                          >
+                            Usuarios
+                          </Link>
+                          <Link
+                            className="hover:bg-greenDarkBlue p-4 rounded-lg"
+                            to={`RegisterChild/`}
+                          >
+                            Niños
+                          </Link>
+                          <Link
+                            className="hover:bg-greenDarkBlue p-4 rounded-lg"
+                            to={`unvaccinatedList`}
+                          >
+                            Prioridad
+                          </Link>
+                        </div>
+                      </div>
+                    )}
+
+                    {rolGlobal === "Enfermera" && (
+                      <div className="hidden md:block">
+                        <div className="font-bold flex space-x-10">
+                          <Link
+                            className="hover:bg-greenDarkBlue p-4 rounded-lg"
+                            to={`../Menu`}
+                          >
+                            Menu
+                          </Link>
+                          <Link
+                            className="hover:bg-greenDarkBlue p-4 rounded-lg"
+                            to={`RegisterChild/`}
+                          >
+                            Niños
+                          </Link>
+                          <Link
+                            className="hover:bg-greenDarkBlue p-4 rounded-lg"
+                            to={`unvaccinatedList`}
+                          >
+                            Prioridad
+                          </Link>
                         </div>
                       </div>
                     )}
@@ -41,6 +87,24 @@ export default function Menu() {
 
                   <div className="-mr-2 flex md:hidden">
                     {rolGlobal === "Jefe de enfermeria" ? (
+                      <Disclosure.Button className="relative mr-3 inline-flex items-center justify-center rounded-md bg-Silver p-2 text-black hover:bg-lightGrey  focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <span className="absolute -inset-0.5" />
+                        <span className="sr-only">Open main menu</span>
+                        {open ? (
+                          <GiHamburgerMenu
+                            className="block h-6 w-6"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <GiHamburgerMenu
+                            className="block h-6 w-6"
+                            aria-hidden="true"
+                          />
+                        )}
+                      </Disclosure.Button>
+                    ) : null}
+
+                    {rolGlobal === "Enfermera" ? (
                       <Disclosure.Button className="relative mr-3 inline-flex items-center justify-center rounded-md bg-Silver p-2 text-black hover:bg-lightGrey  focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="absolute -inset-0.5" />
                         <span className="sr-only">Open main menu</span>
@@ -66,9 +130,24 @@ export default function Menu() {
                   <Disclosure.Panel className="lg:hidden absolute inset-x-0 bg-LightBlue rounded-bl-xl rounded-br-xl">
                     <div className="space-y-2 px-2 pb-3 pt-2 sm:px-3 bg-lightGreen">
                       <div className="font-bold flex flex-col space-y-4">
-                        <Link to={`CreateUsers/Users`}>Usuarios</Link>
-                        <Link to={`RegisterChild/Action`}>Niños</Link>
                         <Link to={`../Menu`}>Menu</Link>
+                        <Link to={`CreateUsers/Users`}>Usuarios</Link>
+                        <Link to={`RegisterChild`}>Niños</Link>
+                        <Link to={`unvaccinatedList`}>Prioridad</Link>
+                      </div>
+                    </div>
+                  </Disclosure.Panel>
+                </>
+              )}
+
+              {rolGlobal === "Enfermera" && (
+                <>
+                  <Disclosure.Panel className="lg:hidden absolute inset-x-0 bg-LightBlue rounded-bl-xl rounded-br-xl">
+                    <div className="space-y-2 px-2 pb-3 pt-2 sm:px-3 bg-lightGreen">
+                      <div className="font-bold flex flex-col space-y-4">
+                        <Link to={`../Menu`}>Menu</Link>
+                        <Link to={`RegisterChild/Action`}>Niños</Link>
+                        <Link to={`unvaccinatedList`}>Prioridad</Link>
                       </div>
                     </div>
                   </Disclosure.Panel>
@@ -97,7 +176,6 @@ export default function Menu() {
       <div className="m-4 bg-white" id="detail">
         <Outlet />
       </div>
-      
     </>
   );
 }

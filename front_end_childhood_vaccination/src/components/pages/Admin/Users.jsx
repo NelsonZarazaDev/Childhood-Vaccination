@@ -9,11 +9,15 @@ import Footer from "../../common/Footer";
 import shieldVaccinator from "../../../assets/img/shieldVaccinator.webp";
 import Button from "../../common/Utilities/Button";
 import Alerts from "../../common/Utilities/Alerts";
+import { useNavigate } from "react-router-dom";
 
 export default function Users() {
+  let navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [usersView, setUsersView] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [alertInfoList, setAlertInfoList] = useState([]);
+
   const itemsPerPage = 8;
 
   useEffect(() => {
@@ -26,7 +30,7 @@ export default function Users() {
         document: usersView.document,
         first_name: usersView.first_name,
         last_names: usersView.last_names,
-        role,
+        role: usersView.role,
         email: usersView.email,
         password: usersView.password,
         phone: usersView.phone,
@@ -43,7 +47,6 @@ export default function Users() {
   const [updateUser, setUpdateUser] = useState({
     email: "",
     phone: "",
-    role: "",
     status: "",
   });
 
@@ -87,14 +90,26 @@ export default function Users() {
         updateUser,
         { headers: header }
       );
+      addAlert("Actualización exitosa", "1");
     } catch (error) {
-      const data = error.response.data;
-      const dataArray = Object.values(data);
-      console.log(dataArray);
+      if (error.response && error.response.data) {
+        const data = error.response.data;
+        const dataArray = Object.values(data);
+        console.log(dataArray);
+        addAlert(dataArray[0], "2");
+      } else {
+        addAlert(
+          "Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.",
+          "2"
+        );
+      }
     }
   };
 
-  console.log(users);
+  const addAlert = (message, type) => {
+    const newAlertInfoList = [...alertInfoList, { message, type }];
+    setAlertInfoList(newAlertInfoList);
+  };
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -115,8 +130,8 @@ export default function Users() {
             <div
               className={
                 user.status
-                  ? "bg-green-300 rounded-3xl break-words w-full md:w-[90%] p-4 shadow-2xl"
-                  : "bg-lightGrey rounded-3xl break-words w-full md:w-[90%] p-4 shadow-2xl"
+                  ? "bg-green-300 rounded-3xl break-words w-full md:w-[90%] p-4 shadow-2xl truncate"
+                  : "bg-lightGrey rounded-3xl break-words w-full md:w-[90%] p-4 shadow-2xl truncate"
               }
             >
               <div className="font-bold text-center text-lg pb-4 uppercase">
@@ -171,7 +186,7 @@ export default function Users() {
                                 <Input
                                   type="text"
                                   value={usersView.document}
-                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   state="disabled"
                                 />
                               </div>
@@ -180,7 +195,7 @@ export default function Users() {
                                 <Input
                                   type="text"
                                   value={usersView.first_name}
-                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   state="disabled"
                                 />
                               </div>
@@ -189,29 +204,20 @@ export default function Users() {
                                 <Input
                                   type="text"
                                   value={usersView.last_names}
-                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   state="disabled"
                                 />
                               </div>
                               <div>
-                                <TextInput text="Rol:" />
-                                <select
-                                  id="role"
-                                  name="role"
-                                  onChange={(e) => onInputChange(e)}
-                                  className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-bold"
-                                >
-                                  <option value=""></option>
-
-                                  <option value="Jefe de enfermeria">
-                                    Jefe de enfermeria
-                                  </option>
-
-                                  <option value="Enfermera">
-                                    Enfermera / Enfermero
-                                  </option>
-                                </select>
+                                <TextInput text="Role" />
+                                <Input
+                                  type="text"
+                                  value={usersView.role}
+                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                  state="disabled"
+                                />
                               </div>
+                              
                               <div>
                                 <TextInput text="Correo:" />
                                 <Input
@@ -220,7 +226,7 @@ export default function Users() {
                                   value={email}
                                   type="email"
                                   onChange={(e) => onInputChange(e)}
-                                  estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                  estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 />
                               </div>
                               <div>
@@ -229,9 +235,9 @@ export default function Users() {
                                   id="phone"
                                   name="phone"
                                   value={phone}
-                                  type="tel"
+                                  type="number"
                                   onChange={(e) => onInputChange(e)}
-                                  estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                  estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 />
                               </div>
 
@@ -241,7 +247,7 @@ export default function Users() {
                                   id="status"
                                   name="status"
                                   onChange={(e) => onInputChange(e)}
-                                  className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-bold"
+                                  className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-medium"
                                 >
                                   <option value=""></option>
                                   <option value={false}>Inactivo</option>
@@ -253,7 +259,7 @@ export default function Users() {
                                 <Input
                                   type="text"
                                   value={usersView.start_date}
-                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   state="disabled"
                                 />
                               </div>
@@ -262,7 +268,7 @@ export default function Users() {
                                 <Input
                                   type="text"
                                   value={usersView.date_birth}
-                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   state="disabled"
                                 />
                               </div>
@@ -276,7 +282,7 @@ export default function Users() {
                                       ? "Masculino"
                                       : "Femenino"
                                   }
-                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   state="disabled"
                                 />
                               </div>
@@ -285,7 +291,7 @@ export default function Users() {
                                 <Input
                                   type="text"
                                   value={usersView.birth_department}
-                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   state="disabled"
                                 />
                               </div>
@@ -294,7 +300,7 @@ export default function Users() {
                                 <Input
                                   type="text"
                                   value={usersView.city_birth}
-                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   state="disabled"
                                 />
                               </div>
@@ -303,6 +309,13 @@ export default function Users() {
                               <Button text="Actualizar" />
                             </div>
                           </form>
+                          {alertInfoList.map((alert, index) => (
+                            <Alerts
+                              key={index}
+                              mensaje={alert.message}
+                              tipo={alert.type}
+                            />
+                          ))}
                         </>
                       }
                     />
@@ -310,7 +323,7 @@ export default function Users() {
 
                   <button onClick={() => infoUser(user.document)}>
                     <Modalcomponent
-                      estilos="text-xl bg-blue-300 rounded-lg p-2"
+                      estilos="text-xl bg-blue-300 rounded-lg p-2 text-black"
                       icon={<LuEye />}
                       title="Información del usuario"
                       content={
@@ -321,7 +334,7 @@ export default function Users() {
                               <Input
                                 type="text"
                                 value={usersView.document}
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>
@@ -330,7 +343,7 @@ export default function Users() {
                               <Input
                                 type="text"
                                 value={usersView.first_name}
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>
@@ -339,7 +352,7 @@ export default function Users() {
                               <Input
                                 type="text"
                                 value={usersView.last_names}
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>
@@ -348,7 +361,7 @@ export default function Users() {
                               <Input
                                 type="text"
                                 value={usersView.role}
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>
@@ -357,7 +370,7 @@ export default function Users() {
                               <Input
                                 type="text"
                                 value={usersView.email}
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>
@@ -366,7 +379,7 @@ export default function Users() {
                               <Input
                                 type="text"
                                 value={usersView.phone}
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>
@@ -375,7 +388,7 @@ export default function Users() {
                               <Input
                                 type="text"
                                 value={usersView.start_date}
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>
@@ -384,7 +397,7 @@ export default function Users() {
                               <Input
                                 type="text"
                                 value={usersView.date_birth}
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>
@@ -393,7 +406,7 @@ export default function Users() {
                               <Input
                                 type="text"
                                 value={user.status ? "Activo" : "Inactivo"}
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>
@@ -407,7 +420,7 @@ export default function Users() {
                                     ? "Masculino"
                                     : "Femenino"
                                 }
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>
@@ -416,7 +429,7 @@ export default function Users() {
                               <Input
                                 type="text"
                                 value={usersView.birth_department}
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>
@@ -425,7 +438,7 @@ export default function Users() {
                               <Input
                                 type="text"
                                 value={usersView.city_birth}
-                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                                estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                 state="disabled"
                               />
                             </div>

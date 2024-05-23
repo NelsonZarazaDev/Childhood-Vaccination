@@ -10,7 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ChildService {
@@ -57,7 +61,9 @@ public class ChildService {
 					vaccine.setApplicationDate(updatedVaccine.getApplicationDate());
 					vaccine.setAppliedTime(updatedVaccine.getAppliedTime());
 					vaccine.setNextAppointmentDate(updatedVaccine.getNextAppointmentDate());
+					child.setDateNextAppointmentDate(updatedVaccine.getNextAppointmentDate());
 					vaccine.setStatus(true);
+					child.setNumVacunas(child.getNumVacunas()+1);
 					vaccine.setVaccinator(updatedVaccine.getVaccinator());
 					childRepository.save(child);
 					return vaccine;
@@ -77,5 +83,27 @@ public class ChildService {
 		}
 
 		return vaccineCountMap;
+	}
+
+
+	/*Traer los que se pasaron*/
+	public List<Child> getChildrenWithPastOrEmptyNextAppointmentDate() {
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		return childRepository.findAll().stream()
+				.filter(child -> {
+					String dateStr = child.getDateNextAppointmentDate();
+					if (dateStr == null || dateStr.isBlank()) {
+						return false;  // No incluir si la fecha está vacía
+					}
+					try {
+						LocalDate appointmentDate = LocalDate.parse(dateStr, formatter);
+						return appointmentDate.isBefore(currentDate);
+					} catch (DateTimeParseException e) {
+						return false;  // Ignorar fechas mal formateadas
+					}
+				})
+				.collect(Collectors.toList());
 	}
 }

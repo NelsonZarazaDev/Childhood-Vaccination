@@ -8,6 +8,7 @@ import SelectDepartment from "../../common/Utilities/SelectDepartment";
 import TextInput from "../../common/Utilities/TextInput";
 import axios from "axios";
 import Button from "../../common/Utilities/Button";
+import Alerts from "../../common/Utilities/Alerts";
 
 export default function CreateUsers() {
   let navigate = useNavigate();
@@ -47,6 +48,8 @@ export default function CreateUsers() {
     setCreateUser({ ...createUser, [e.target.name]: e.target.value });
   };
 
+  const [alertInfoList, setAlertInfoList] = useState([]);
+
   const header = {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -55,13 +58,30 @@ export default function CreateUsers() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(createUser, {
-      headers: header,
-    });
-    await axios.post("http://localhost:8088/vaccinator", createUser, {
-      headers: header,
-    });
-    navigate("../CreateUsers", { replace: true });
+    try {
+      await axios.post("http://localhost:8088/vaccinator", createUser, {
+        headers: header,
+      });
+      addAlert("Registro guardado", "1");
+      navigate("../CreateUsers", { replace: true });
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const data = error.response.data;
+        const dataArray = Object.values(data);
+        console.log(dataArray);
+        addAlert(dataArray[0], "2");
+      } else {
+        addAlert(
+          "Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.",
+          "2"
+        );
+      }
+    }
+  };
+
+  const addAlert = (message, type) => {
+    const newAlertInfoList = [...alertInfoList, { message, type }];
+    setAlertInfoList(newAlertInfoList);
   };
 
   return (
@@ -82,9 +102,9 @@ export default function CreateUsers() {
                       id="document"
                       name="document"
                       value={document}
-                      type="text"
+                      type="number"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -95,7 +115,7 @@ export default function CreateUsers() {
                       value={first_name}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -106,7 +126,7 @@ export default function CreateUsers() {
                       value={last_names}
                       type="text"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -115,7 +135,7 @@ export default function CreateUsers() {
                       id="role"
                       name="role"
                       onChange={(e) => onInputChange(e)}
-                      className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-bold"
+                      className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-medium"
                     >
                       <option value=""></option>
                       <option value="Enfermera">Enfermera / Enfermero</option>
@@ -132,7 +152,7 @@ export default function CreateUsers() {
                       value={email}
                       type="email"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -143,7 +163,7 @@ export default function CreateUsers() {
                       value={password}
                       type="password"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -152,9 +172,9 @@ export default function CreateUsers() {
                       id="phone"
                       name="phone"
                       value={phone}
-                      type="tel"
+                      type="number"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -165,7 +185,7 @@ export default function CreateUsers() {
                       value={start_date}
                       type="date"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -176,7 +196,7 @@ export default function CreateUsers() {
                       value={date_birth}
                       type="date"
                       onChange={(e) => onInputChange(e)}
-                      estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-bold"
+                      estilos="w-full font-medium border-2 border-darkGray bg-white p-3 rounded-full"
                     />
                   </div>
                   <div>
@@ -185,7 +205,7 @@ export default function CreateUsers() {
                       id="sex"
                       name="sex"
                       onChange={(e) => onInputChange(e)}
-                      className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-bold"
+                      className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-medium"
                     >
                       <option value=""></option>
                       <option value="M">Masculino</option>
@@ -202,6 +222,7 @@ export default function CreateUsers() {
                   <Button text="Crear" />
                 </div>
               </form>
+              
             </>
           }
         />
@@ -210,6 +231,9 @@ export default function CreateUsers() {
         </div>
       </div>
       <Outlet />
+      {alertInfoList.map((alert, index) => (
+                <Alerts key={index} mensaje={alert.message} tipo={alert.type} />
+              ))}
     </>
   );
 }

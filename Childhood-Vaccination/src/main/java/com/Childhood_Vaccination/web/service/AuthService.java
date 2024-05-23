@@ -4,20 +4,15 @@ package com.Childhood_Vaccination.web.service;
 import com.Childhood_Vaccination.web.dto.AuthResponse;
 import com.Childhood_Vaccination.web.dto.LoginChildRequest;
 import com.Childhood_Vaccination.web.dto.LoginRequest;
-import com.Childhood_Vaccination.web.exception.AlreadyExistsException;
 import com.Childhood_Vaccination.web.exception.NotFoundException;
 import com.Childhood_Vaccination.web.model.Child;
 import com.Childhood_Vaccination.web.model.Vaccinator;
 import com.Childhood_Vaccination.web.repository.ChildRepository;
 import com.Childhood_Vaccination.web.repository.VaccinatorRepository;
 import com.Childhood_Vaccination.web.util.Constants;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

@@ -53,7 +53,7 @@ export default function SelectDepartment({ onChange }) {
         <select
           name="birth_department"
           id="birth_department"
-          className="w-[96%] h-auto bg-white border-2 border-darkGray p-3 rounded-full font-bold"
+          className="w-[96%] h-auto bg-white border-2 border-darkGray p-3 rounded-full font-medium"
           onInput={handleSelectDepartment}
           onChange={onChange}
         >

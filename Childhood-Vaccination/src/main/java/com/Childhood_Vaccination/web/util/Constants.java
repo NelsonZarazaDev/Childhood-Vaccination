@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Constants {
+	NOT_EXIST("El usuario no existe"),
 	CATEGORIA_NOT_FOUND("User not found"),
 	CATEGORIA_IS_NULL("User is null"),
 	ARTICULO_NOT_FOUND("Address not found"),

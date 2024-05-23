@@ -5,7 +5,7 @@ export default function Button({ text }) {
     <>
       <button
         type="submit"
-        className="w-1/6 h-14 bg-darkBlue rounded-full font-bold text-white text-xl shadow-xl"
+        className="w-3/6 h-14 bg-darkBlue rounded-full font-bold text-white text-xl shadow-xl"
       >
         {text}
       </button>

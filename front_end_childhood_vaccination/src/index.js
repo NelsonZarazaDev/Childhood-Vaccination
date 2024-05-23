@@ -18,6 +18,7 @@ import ActionTable from "./components/pages/HealthPersonnel/ActionTable";
 import CreateUsers from "./components/pages/Admin/CreateUsers";
 import Users from "./components/pages/Admin/Users";
 import Menu from "./components/pages/Menu";
+import UnvaccinatedList from "./components/pages/UnvaccinatedList";
 import User from "./components/pages/Admin/User";
 
 function ProtectedRoute({ children, allowedRoles }) {
@@ -117,8 +118,37 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: "unvaccinatedList",
+            element: (
+              <ProtectedRoute
+                allowedRoles={["Enfermera", "Jefe de enfermeria"]}
+              >
+                <UnvaccinatedList />
+              </ProtectedRoute>
+            ),
+            children: [
+              {
+                errorElement: <Error />,
+                children: [
+                  {
+                    path: "unvaccinatedList/:documento",
+                    element: (
+                      <ProtectedRoute
+                        allowedRoles={["Enfermera", "Jefe de enfermeria"]}
+                      >
+                        <UnvaccinatedList />
+                      </ProtectedRoute>
+                    ),
+                  },
+                ],
+              },
+            ],
+          },
         ],
       },
+
+      {},
     ],
   },
 ]);
