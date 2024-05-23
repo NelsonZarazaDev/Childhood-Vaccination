@@ -18,10 +18,11 @@ export default function User() {
   const [paramsUser, setParamsUser] = useState();
   const [alertInfoList, setAlertInfoList] = useState([]);
 
-  const params = useParams();
+  let params = useParams();
+  params = atob(params.documento);
 
   useEffect(() => {
-    infoUser(params.documento);
+    infoUser(params);
   }, [params]);
 
   useEffect(() => {

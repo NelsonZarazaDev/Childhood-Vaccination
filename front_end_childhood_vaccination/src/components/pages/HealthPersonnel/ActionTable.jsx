@@ -11,11 +11,9 @@ import { GetChild } from "../../../data/VaccinationSchedule";
 export default function ActionTable() {
   let navigate = useNavigate();
   const [ChildRegister, setChilddRegister] = useState([]);
-  const params = useParams();
-  const childRegister = useMemo(
-    () => GetChild(params.documento, navigate),
-    [params.documento]
-  );
+  let params = useParams();
+  params = atob(params.documento);
+  const childRegister = useMemo(() => GetChild(params, navigate), [params]);
   childRegister.then(function (result) {
     setChilddRegister(result);
   });
@@ -51,8 +49,7 @@ export default function ActionTable() {
                   title="Registrar usuario"
                   content={
                     <>
-                      <VaccinationCard 
-                      code="@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH"/>
+                      <VaccinationCard code="@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH" />
                     </>
                   }
                 />
@@ -62,7 +59,7 @@ export default function ActionTable() {
                   title="Información del usuario"
                   content={
                     <>
-                      <VaccinationCard/>
+                      <VaccinationCard />
                     </>
                   }
                 />

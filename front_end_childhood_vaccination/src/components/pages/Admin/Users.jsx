@@ -30,7 +30,7 @@ export default function Users() {
         document: usersView.document,
         first_name: usersView.first_name,
         last_names: usersView.last_names,
-        role,
+        role: usersView.role,
         email: usersView.email,
         password: usersView.password,
         phone: usersView.phone,
@@ -47,7 +47,6 @@ export default function Users() {
   const [updateUser, setUpdateUser] = useState({
     email: "",
     phone: "",
-    role: "",
     status: "",
   });
 
@@ -131,8 +130,8 @@ export default function Users() {
             <div
               className={
                 user.status
-                  ? "bg-green-300 rounded-3xl break-words w-full md:w-[90%] p-4 shadow-2xl"
-                  : "bg-lightGrey rounded-3xl break-words w-full md:w-[90%] p-4 shadow-2xl"
+                  ? "bg-green-300 rounded-3xl break-words w-full md:w-[90%] p-4 shadow-2xl truncate"
+                  : "bg-lightGrey rounded-3xl break-words w-full md:w-[90%] p-4 shadow-2xl truncate"
               }
             >
               <div className="font-bold text-center text-lg pb-4 uppercase">
@@ -210,24 +209,15 @@ export default function Users() {
                                 />
                               </div>
                               <div>
-                                <TextInput text="Rol:" />
-                                <select
-                                  id="role"
-                                  name="role"
-                                  onChange={(e) => onInputChange(e)}
-                                  className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-medium"
-                                >
-                                  <option value=""></option>
-
-                                  <option value="Jefe de enfermeria">
-                                    Jefe de enfermeria
-                                  </option>
-
-                                  <option value="Enfermera">
-                                    Enfermera / Enfermero
-                                  </option>
-                                </select>
+                                <TextInput text="Role" />
+                                <Input
+                                  type="text"
+                                  value={usersView.role}
+                                  estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                  state="disabled"
+                                />
                               </div>
+                              
                               <div>
                                 <TextInput text="Correo:" />
                                 <Input

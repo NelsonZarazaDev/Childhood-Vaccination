@@ -1,7 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
 export function salir(navigate) {
-  localStorage.clear();
+  localStorage.removeItem('decodedToken');
+  localStorage.removeItem('last_names');
+  localStorage.removeItem('token');
+  localStorage.removeItem('first_name');
+  localStorage.removeItem('rol');
+  localStorage.removeItem('numVacunas');
   navigate("/");
 }
 
@@ -11,9 +16,9 @@ export function validaToken(navigate) {
   }
 }
 
-export function validateLogin(navigate, route){
-    const userToken = localStorage.getItem('token');
-    if(!!userToken){
-      navigate(route, {replace:true});
-    }
+export function validateLogin(navigate, route) {
+  const userToken = localStorage.getItem("token");
+  if (!!userToken) {
+    navigate(route, { replace: true });
+  }
 }

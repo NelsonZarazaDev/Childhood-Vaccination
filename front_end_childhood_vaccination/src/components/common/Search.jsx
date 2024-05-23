@@ -2,23 +2,53 @@ import React, { useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import Alerts from "./Utilities/Alerts";
+import axios from "axios";
 
 export default function Search({ code }) {
-  let navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // Estado para almacenar el mensaje de error
+  const navigate = useNavigate();
 
   const onInputChange = (e) => {
-    setSearch({ search, [e.target.name]: e.target.value });
+    setSearch(e.target.value);
+  };
+  const token = localStorage.getItem("token");
+
+  const header = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("Valor de search.search:", search.search); // Agregar este console.log
-    if (code === "pt}YXn4f{F})+-BK(0k2jrt;m+T6*Ezr)L#a]udGFH]qK0R{a/2jR],iD") {
-      navigate("/Menu/CreateUsers/User/" + search.search);
-    } else {
-      navigate("/Menu/RegisterChild/Action/" + search.search);
-    }
+    try {
+      if (!search.trim()) {
+        return;
+      }
+
+      if (
+        code === "pt}YXn4f{F})+-BK(0k2jrt;m+T6*Ezr)L#a]udGFH]qK0R{a/2jR],iD"
+      ) {
+        const resultado = await axios.get(
+          "http://localhost:8088/vaccinator/" + search,
+          { headers: header }
+        );
+        if (!resultado || !resultado.data) {
+          return; // Si no se recibe ningún dato de la base de datos, salir de la función
+        }
+        navigate("/Menu/CreateUsers/User/" + btoa(search));
+      } else {
+        const resultado = await axios.get(
+          "http://localhost:8088/child/" + search,
+          { headers: header }
+        );
+        if (!resultado || !resultado.data) {
+          return; // Si no se recibe ningún dato de la base de datos, salir de la función
+        }
+        navigate("/Menu/RegisterChild/Action/" + btoa(search));
+      }
+    } catch (error) {}
   };
 
   return (
@@ -41,6 +71,8 @@ export default function Search({ code }) {
           </button>
         </label>
       </form>
+      {errorMessage && <Alerts message={errorMessage} />}{" "}
+      {/* Renderizar el mensaje de error si existe */}
     </>
   );
 }

@@ -7,7 +7,6 @@ const header = {
   "Content-Type": "application/json",
   Authorization: `Bearer ${localStorage.getItem("token")}`,
 };
-
 export async function GetChild(document, navigate) {
   try {
     const urlReadChild = "http://localhost:8088/child/";

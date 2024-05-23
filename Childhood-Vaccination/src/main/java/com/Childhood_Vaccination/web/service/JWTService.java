@@ -17,7 +17,8 @@ import java.util.Map;
 @Service
 public class JWTService {
     private static final String SECRET_KEY = "2208153513d489a979265575aa0dfd5bed7bd9588981bb60f4a5e19d02614433";
-    private static final long accessTokenValidity = 60*60*1000;
+    //Una hora 60*60*1000
+    private static final long accessTokenValidity = 4*60*60*1000;
     public String getToken(UserDetails user){
         return getToken(new HashMap<>(), user);
     }

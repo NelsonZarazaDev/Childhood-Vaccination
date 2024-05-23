@@ -21,13 +21,9 @@ export default function LoginVaccinator() {
     password: "",
   });
 
-  const [alertInfo, setAlertInfo] = useState({
-    message: "",
-    type: "",
-  });
+  const [alertInfoList, setAlertInfoList] = useState([]);
 
   const { email, password } = login;
-  const { message, type } = alertInfo;
 
   const onInputChange = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
@@ -56,21 +52,26 @@ export default function LoginVaccinator() {
       localStorage.setItem("rol", resultado.data.role);
       localStorage.setItem("first_name", resultado.data.first_name);
       localStorage.setItem("last_names", resultado.data.last_names);
-      setAlertInfo({ message: "Sesión iniciada", type: "1" });
+      addAlert("Sesión iniciada", "1");
       navigate("/Menu/RegisterChild");
     } catch (error) {
       if (error.response && error.response.data) {
         const data = error.response.data;
         const dataArray = Object.values(data);
-        setAlertInfo({ message: dataArray[0], type: "2" });
+        console.log(dataArray);
+        addAlert(dataArray[0], "2");
       } else {
-        setAlertInfo({
-          message:
-            "Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.",
-          type: "2",
-        });
+        addAlert(
+          "Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.",
+          "2"
+        );
       }
     }
+  };
+
+  const addAlert = (message, type) => {
+    const newAlertInfoList = [...alertInfoList, { message, type }];
+    setAlertInfoList(newAlertInfoList);
   };
 
   return (
@@ -111,7 +112,9 @@ export default function LoginVaccinator() {
 
                 <ButtonLogin />
               </form>
-              {message && <Alerts mensaje={message} tipo={type} />}
+              {alertInfoList.map((alert, index) => (
+                <Alerts key={index} mensaje={alert.message} tipo={alert.type} />
+              ))}
             </div>
             <div className="invisible hidden md:visible fixed items-center lg:flex lg:opacity-100 lg:relative lg:w-full lg:h-full lg:m-4">
               <img className="" src={loginImg} alt="" />

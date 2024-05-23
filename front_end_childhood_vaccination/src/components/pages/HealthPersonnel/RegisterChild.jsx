@@ -468,8 +468,6 @@ export default function RegisterChild() {
     setAlertInfoList(newAlertInfoList);
   };
 
-  // navigate("Menu/RegisterChild/Action", { replace: true });
-
   return (
     <>
       <div className="w-full flex space-y-8 justify-center font-bold text-2xl text-greenDarkBlue my-6">

@@ -6,9 +6,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.core.annotation.Order;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -97,6 +95,11 @@ public class Child implements UserDetails {
 	@NotBlank(message = "El correo electrónico del padre es obligatorio")
 	@Email(message = "El correo electrónico del padre no es válido")
 	private String parents_email_father;
+
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private String dateNextAppointmentDate;
+
+	private int numVacunas;
 
 	private List<Vaccine> vaccines;
 

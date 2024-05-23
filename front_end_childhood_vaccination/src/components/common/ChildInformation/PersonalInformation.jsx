@@ -3,6 +3,7 @@ import img1 from "../../../assets/img/8817519.webp";
 import img2 from "../../../assets/img/8817512.webp";
 
 export default function PersonalInformation({child}) {
+  localStorage.setItem("numVacunas", child.numVacunas);
   return (
     <>
       <div className="space-y-10 md:flex md:items-center md:flex-col lg:flex-row lg:space-y-0 lg:space-x-10">

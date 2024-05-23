@@ -86,9 +86,10 @@ export default function VaccinationSchedule({ child, code }) {
     setEditChild({ ...editChild, [e.target.name]: e.target.value });
   };
 
+  const numVacunas = localStorage.getItem("numVacunas");
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(editChild.laboratory);
+
     try {
       if (!editChild.laboratory || editChild.laboratory.trim().length === 0) {
         addAlert("El laboratorio es obligatorio", "2");
@@ -97,6 +98,8 @@ export default function VaccinationSchedule({ child, code }) {
         editChild.lotNumber.trim().length === 0
       ) {
         addAlert("El numero de lote es obligatorio", "2");
+      } else if (!editChild.nextAppointmentDate && numVacunas != 32) {
+        addAlert("La fecha de la proxima cita es obligatorio", "2");
       } else {
         await axios.put(
           "http://localhost:8088/child/" + documentoDato + "/" + idDato,
@@ -166,7 +169,14 @@ export default function VaccinationSchedule({ child, code }) {
         <tbody>
           {child.vaccines &&
             child.vaccines.map((vaccine, index) => (
-              <tr key={index} className="hover:bg-lightGreen h-16">
+              <tr
+                key={index}
+                className={
+                  vaccine.status
+                    ? "hover:bg-[#7cd3ab] bg-hoverGreen h-16"
+                    : "hover:bg-gray-400 bg-gray-200 h-16"
+                }
+              >
                 <td className="bg-blue-300 font-medium">{vaccine.age}</td>
                 <td className="font-medium">{vaccine.vaccineName}</td>
                 <td className="font-medium">{vaccine.dose}</td>
@@ -184,9 +194,13 @@ export default function VaccinationSchedule({ child, code }) {
                     : ""}
                 </td>
                 {(user === "Jefe de enfermeria" &&
-                  code === "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH" && vaccine.status!=true) ||
+                  code ===
+                    "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH" &&
+                  vaccine.status != true) ||
                 (user === "Enfermera" &&
-                  code === "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH" && vaccine.status!=true) ? (
+                  code ===
+                    "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH" &&
+                  vaccine.status != true) ? (
                   <td className="text-center">
                     <button
                       onClick={() => infoVaccine(child.document, vaccine.id)}
@@ -340,7 +354,11 @@ export default function VaccinationSchedule({ child, code }) {
             child.vaccines.map((vaccine, index) => (
               <details
                 key={index}
-                className="bg-blue-200 :ring-1 :ring-black/5 :shadow-lg p-6 rounded-lg "
+                className={
+                  vaccine.status
+                    ? "bg-hoverGreen :ring-1 :ring-black/5 :shadow-lg p-6 rounded-lg"
+                    : "bg-gray-200 :ring-1 :ring-black/5 :shadow-lg p-6 rounded-lg"
+                }
               >
                 <summary className="text-sm leading-6 text-slate-900 font-bold select-none">
                   {vaccine.age + " - " + vaccine.vaccineName}
@@ -383,159 +401,155 @@ export default function VaccinationSchedule({ child, code }) {
                     </div>
                   </div>
                   <div className="flex space-x-2">
-                    {(user === "Jefe de enfermeria" &&
-                      code ===
-                        "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH") ||
-                    (user === "Enfermera" &&
-                      code ===
-                        "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH") ? (
-                      <>
-                        <div className="font-bold	">ACCIONES:</div>
-
-                        <div className="flex space-x-2">
-                          <Modalcomponent
-                            estilos="text-xl p-1 rounded-md bg-yellow-300"
-                            icon={<RiEdit2Line />}
-                            title="Información del usuario"
-                            content={
-                              <>
-                                <form onSubmit={(e) => onSubmit(e)}>
-                                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-4 my-8">
-                                    <div>
-                                      <TextInput text="Edad" />
-                                      <Input
-                                        id="age"
-                                        name="age"
-                                        type="text"
-                                        value={vaccineView.age}
-                                        state="disabled"
-                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
-                                      />
-                                    </div>
-                                    <div>
-                                      <TextInput text="Vacuna" />
-                                      <Input
-                                        id="vaccineName"
-                                        name="vaccineName"
-                                        type="text"
-                                        value={vaccineView.vaccineName}
-                                        state="disabled"
-                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
-                                      />
-                                    </div>
-                                    <div>
-                                      <TextInput text="Dosis" />
-                                      <Input
-                                        id="dose"
-                                        name="dose"
-                                        type="text"
-                                        value={vaccineView.dose}
-                                        state="disabled"
-                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
-                                      />
-                                    </div>
-                                    <div>
-                                      <TextInput text="Fecha de aplicación" />
-                                      <Input
-                                        id="applicationDate"
-                                        name="applicationDate"
-                                        type="text"
-                                        value={fechaFormateada}
-                                        onChange={(e) => onInputChange(e)}
-                                        state="disabled"
-                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
-                                      />
-                                    </div>
-                                    <div>
-                                      <TextInput text="Laboratorio" />
-                                      <Input
-                                        id="laboratory"
-                                        name="laboratory"
-                                        type="text"
-                                        value={laboratory}
-                                        onChange={(e) => onInputChange(e)}
-                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
-                                      />
-                                    </div>
-                                    <div>
-                                      <TextInput text="Numero de lote" />
-                                      <Input
-                                        id="lotNumber"
-                                        name="lotNumber"
-                                        type="text"
-                                        value={lotNumber}
-                                        onChange={(e) => onInputChange(e)}
-                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
-                                      />
-                                    </div>
-                                    <div>
-                                      <TextInput text="Fecha proxima cita" />
-                                      <Input
-                                        id="nextAppointmentDate"
-                                        name="nextAppointmentDate"
-                                        value={nextAppointmentDate}
-                                        onChange={(e) => onInputChange(e)}
-                                        type="date"
-                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
-                                      />
-                                    </div>
-
-                                    {/* Vacuandor */}
-                                    <Input
-                                      id="document"
-                                      name="document"
-                                      type="hidden"
-                                      value={localStorage.getItem(
-                                        "decodedToken"
-                                      )}
-                                      state="disabled"
-                                    />
-
-                                    <div>
-                                      <TextInput text="Nombre del vacunador:" />
-                                      <Input
-                                        id="first_name"
-                                        name="first_name"
-                                        type="text"
-                                        value={localStorage.getItem(
-                                          "first_name"
-                                        )}
-                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
-                                        state="disabled"
-                                      />
-                                    </div>
-
-                                    <div>
-                                      <TextInput text="Apellidos del vacunador:" />
-                                      <Input
-                                        id="last_name"
-                                        name="last_name"
-                                        type="text"
-                                        value={localStorage.getItem(
-                                          "last_names"
-                                        )}
-                                        estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
-                                        state="disabled"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="w-full flex justify-center">
-                                    <Button text="Actualizar" />
-                                  </div>
-                                </form>
-                                {alertInfoList.map((alert, index) => (
-                                  <Alerts
-                                    key={index}
-                                    mensaje={alert.message}
-                                    tipo={alert.type}
+                  {(user === "Jefe de enfermeria" &&
+                  code ===
+                    "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH" &&
+                  vaccine.status != true) ||
+                (user === "Enfermera" &&
+                  code ===
+                    "@ut@2&D,/NW_1MVXvbTuFD$=6_Jp,rD4e=z46#__T:2vm8(XDT7{()2;EGJH" &&
+                  vaccine.status != true) ? (
+                  <td className="text-center">
+                    <button
+                      onClick={() => infoVaccine(child.document, vaccine.id)}
+                    >
+                      <Modalcomponent
+                        estilos="text-xl p-1 rounded-md bg-yellow-300"
+                        icon={<RiEdit2Line />}
+                        title="Información del usuario"
+                        content={
+                          <>
+                            <form onSubmit={(e) => onSubmit(e)}>
+                              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-4 my-8">
+                                <div>
+                                  <TextInput text="Edad" />
+                                  <Input
+                                    id="age"
+                                    name="age"
+                                    type="text"
+                                    value={vaccineView.age}
+                                    state="disabled"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                                   />
-                                ))}
-                              </>
-                            }
-                          />
-                        </div>
-                      </>
-                    ) : null}
+                                </div>
+                                <div>
+                                  <TextInput text="Vacuna" />
+                                  <Input
+                                    id="vaccineName"
+                                    name="vaccineName"
+                                    type="text"
+                                    value={vaccineView.vaccineName}
+                                    state="disabled"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                  />
+                                </div>
+                                <div>
+                                  <TextInput text="Dosis" />
+                                  <Input
+                                    id="dose"
+                                    name="dose"
+                                    type="text"
+                                    value={vaccineView.dose}
+                                    state="disabled"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                  />
+                                </div>
+                                <div>
+                                  <TextInput text="Fecha de aplicación" />
+                                  <Input
+                                    id="applicationDate"
+                                    name="applicationDate"
+                                    type="text"
+                                    value={fechaFormateada}
+                                    onChange={(e) => onInputChange(e)}
+                                    state="disabled"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                  />
+                                </div>
+                                <div>
+                                  <TextInput text="Laboratorio" />
+                                  <Input
+                                    id="laboratory"
+                                    name="laboratory"
+                                    type="text"
+                                    value={laboratory}
+                                    onChange={(e) => onInputChange(e)}
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                  />
+                                </div>
+                                <div>
+                                  <TextInput text="Numero de lote" />
+                                  <Input
+                                    id="lotNumber"
+                                    name="lotNumber"
+                                    type="text"
+                                    value={lotNumber}
+                                    onChange={(e) => onInputChange(e)}
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                  />
+                                </div>
+                                <div>
+                                  <TextInput text="Fecha proxima cita" />
+                                  <Input
+                                    id="nextAppointmentDate"
+                                    name="nextAppointmentDate"
+                                    value={nextAppointmentDate}
+                                    onChange={(e) => onInputChange(e)}
+                                    type="date"
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                  />
+                                </div>
+
+                                {/* Vacuandor */}
+                                <Input
+                                  id="document"
+                                  name="document"
+                                  type="hidden"
+                                  value={localStorage.getItem("decodedToken")}
+                                  state="disabled"
+                                />
+
+                                <div>
+                                  <TextInput text="Nombre del vacunador:" />
+                                  <Input
+                                    id="first_name"
+                                    name="first_name"
+                                    type="text"
+                                    value={localStorage.getItem("first_name")}
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                    state="disabled"
+                                  />
+                                </div>
+
+                                <div>
+                                  <TextInput text="Apellidos del vacunador:" />
+                                  <Input
+                                    id="last_name"
+                                    name="last_name"
+                                    type="text"
+                                    value={localStorage.getItem("last_names")}
+                                    estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                                    state="disabled"
+                                  />
+                                </div>
+                              </div>
+                              <div className="w-full flex justify-center">
+                                <Button text="Actualizar" />
+                              </div>
+                            </form>
+                            {alertInfoList.map((alert, index) => (
+                              <Alerts
+                                key={index}
+                                mensaje={alert.message}
+                                tipo={alert.type}
+                              />
+                            ))}
+                          </>
+                        }
+                      />
+                    </button>
+                  </td>
+                ) : null}
                   </div>
                 </div>
               </details>

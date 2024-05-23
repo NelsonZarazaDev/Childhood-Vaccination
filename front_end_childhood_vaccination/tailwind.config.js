@@ -11,6 +11,8 @@ module.exports = {
         'greenDarkBlue':'#159a9c',
         'lightGrey':'#b4bec9',
         'darkGray':'#bababa',
+        'transparentgray':'rgb(128 128 128 0.15)',
+        'hoverGreen':"#abdfc7",
       },
       keyframes: {
         flotar: {

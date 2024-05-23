@@ -8,6 +8,7 @@ import SelectDepartment from "../../common/Utilities/SelectDepartment";
 import TextInput from "../../common/Utilities/TextInput";
 import axios from "axios";
 import Button from "../../common/Utilities/Button";
+import Alerts from "../../common/Utilities/Alerts";
 
 export default function CreateUsers() {
   let navigate = useNavigate();
@@ -47,6 +48,8 @@ export default function CreateUsers() {
     setCreateUser({ ...createUser, [e.target.name]: e.target.value });
   };
 
+  const [alertInfoList, setAlertInfoList] = useState([]);
+
   const header = {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -55,13 +58,30 @@ export default function CreateUsers() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(createUser, {
-      headers: header,
-    });
-    await axios.post("http://localhost:8088/vaccinator", createUser, {
-      headers: header,
-    });
-    navigate("../CreateUsers", { replace: true });
+    try {
+      await axios.post("http://localhost:8088/vaccinator", createUser, {
+        headers: header,
+      });
+      addAlert("Registro guardado", "1");
+      navigate("../CreateUsers", { replace: true });
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const data = error.response.data;
+        const dataArray = Object.values(data);
+        console.log(dataArray);
+        addAlert(dataArray[0], "2");
+      } else {
+        addAlert(
+          "Error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.",
+          "2"
+        );
+      }
+    }
+  };
+
+  const addAlert = (message, type) => {
+    const newAlertInfoList = [...alertInfoList, { message, type }];
+    setAlertInfoList(newAlertInfoList);
   };
 
   return (
@@ -202,6 +222,7 @@ export default function CreateUsers() {
                   <Button text="Crear" />
                 </div>
               </form>
+              
             </>
           }
         />
@@ -210,6 +231,9 @@ export default function CreateUsers() {
         </div>
       </div>
       <Outlet />
+      {alertInfoList.map((alert, index) => (
+                <Alerts key={index} mensaje={alert.message} tipo={alert.type} />
+              ))}
     </>
   );
 }

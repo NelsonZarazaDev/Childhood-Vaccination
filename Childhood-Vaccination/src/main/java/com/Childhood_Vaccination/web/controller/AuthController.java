@@ -4,7 +4,6 @@ package com.Childhood_Vaccination.web.controller;
 import com.Childhood_Vaccination.web.dto.AuthResponse;
 import com.Childhood_Vaccination.web.dto.LoginChildRequest;
 import com.Childhood_Vaccination.web.dto.LoginRequest;
-import com.Childhood_Vaccination.web.model.Vaccinator;
 import com.Childhood_Vaccination.web.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
