@@ -21,6 +21,9 @@ public class ChildService {
 	@Autowired
 	private ChildRepository childRepository;
 
+	@Autowired
+	private TwilioService twilioService;
+
 	/*Create child*/
 	public Child createChild(Child childReq) {
 		Optional<Child> childBd = childRepository.findById(childReq.getDocument());
@@ -91,7 +94,8 @@ public class ChildService {
 		LocalDate currentDate = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-		return childRepository.findAll().stream()
+		List<Child> children = childRepository.findAll();
+		List<Child> childrenWithPastAppointment = children.stream()
 				.filter(child -> {
 					String dateStr = child.getDateNextAppointmentDate();
 					if (dateStr == null || dateStr.isBlank()) {
@@ -105,5 +109,23 @@ public class ChildService {
 					}
 				})
 				.collect(Collectors.toList());
+
+		sendWhatsAppToNextAppointmentChildren(childrenWithPastAppointment);
+		return childrenWithPastAppointment;
+	}
+
+	private void sendWhatsAppToNextAppointmentChildren(List<Child> children) {
+		LocalDate today = LocalDate.now();
+		String todayStr = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+		List<String> phoneNumbers = children.stream()
+				.map(Child::getParents_phone_mother)
+				.collect(Collectors.toList());
+
+		String message = "Recordatorio: Tienes una cita de vacunación hoy. Por favor, asiste puntualmente.";
+
+		for (String phoneNumber : phoneNumbers) {
+			twilioService.sendWhatsAppMessage(phoneNumber, message);
+		}
 	}
 }

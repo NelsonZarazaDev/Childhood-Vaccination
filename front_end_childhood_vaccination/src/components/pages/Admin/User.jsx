@@ -31,7 +31,7 @@ export default function User() {
         document: usersView.document,
         first_name: usersView.first_name,
         last_names: usersView.last_names,
-        role,
+        role: usersView.role,
         email: usersView.email,
         password: usersView.password,
         phone: usersView.phone,
@@ -48,7 +48,6 @@ export default function User() {
   const [updateUser, setUpdateUser] = useState({
     email: "",
     phone: "",
-    role: "",
     status: "",
   });
 
@@ -188,23 +187,13 @@ export default function User() {
                             />
                           </div>
                           <div>
-                            <TextInput text="Rol:" />
-                            <select
-                              id="role"
-                              name="role"
-                              onChange={(e) => onInputChange(e)}
-                              className="w-full bg-white border-2 border-darkGray p-3 rounded-full font-medium"
-                            >
-                              <option value=""></option>
-
-                              <option value="Jefe de enfermeria">
-                                Jefe de enfermeria
-                              </option>
-
-                              <option value="Enfermera">
-                                Enfermera / Enfermero
-                              </option>
-                            </select>
+                            <TextInput text="Apellidos" />
+                            <Input
+                              type="text"
+                              value={usersView.role}
+                              estilos="w-full disabled:opacity-65 border-2 border-darkGray bg-white p-3 rounded-full font-medium"
+                              state="disabled"
+                            />
                           </div>
                           <div>
                             <TextInput text="Correo:" />

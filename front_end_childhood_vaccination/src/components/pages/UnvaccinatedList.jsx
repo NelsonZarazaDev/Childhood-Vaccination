@@ -88,7 +88,7 @@ export default function UnvaccinatedList() {
               <div className="w-full flex justify-center mt-3">
                 <button onClick={() => infoUser(unvaccinated.document)}>
                   <Modalcomponent
-                    estilos="text-xl bg-blue-300 rounded-lg p-2 text-black"
+                    estilos="text-xl bg-red-600 rounded-lg p-2 text-black"
                     icon={<LuEye />}
                     title="Información del usuario"
                     content={

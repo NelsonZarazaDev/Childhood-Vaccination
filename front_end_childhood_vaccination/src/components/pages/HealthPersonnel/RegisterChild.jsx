@@ -664,7 +664,7 @@ export default function RegisterChild() {
                       id="parents_phone_mother"
                       name="parents_phone_mother"
                       value={parents_phone_mother}
-                      type="number"
+                      type="text"
                       onChange={(e) => onInputChange(e)}
                       estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />
@@ -676,7 +676,7 @@ export default function RegisterChild() {
                       id="parents_phone_father"
                       name="parents_phone_father"
                       value={parents_phone_father}
-                      type="number"
+                      type="text"
                       onChange={(e) => onInputChange(e)}
                       estilos="w-full border-2 border-darkGray bg-white p-3 rounded-full font-medium"
                     />

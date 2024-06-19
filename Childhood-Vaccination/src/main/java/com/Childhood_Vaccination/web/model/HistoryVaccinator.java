@@ -2,7 +2,10 @@ package com.Childhood_Vaccination.web.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,14 +13,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
 import java.util.List;
 
-@Document(collection = "vaccinator")
+@Document(collection = "historyVaccinator")
 @Data
 @Builder
 @AllArgsConstructor
-public class Vaccinator implements UserDetails {
+public class HistoryVaccinator implements UserDetails {
 	@Id
 	@NotBlank(message = "El documento es requerido")
 	private String document;
@@ -68,7 +72,6 @@ public class Vaccinator implements UserDetails {
 	@Size(max = 250,message = "El departamento es demasiado largo")
 	private String birth_department;
 
-	private int schema;
 
 	@JsonIgnore
 	@Override
